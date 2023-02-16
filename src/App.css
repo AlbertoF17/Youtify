@@ -1,0 +1,187 @@
+
+body{
+  background: linear-gradient(90deg, rgba(28,255,0,1) 40%, rgba(249,255,136,1) 50%, rgba(255,0,0,1) 60%);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+h1{
+  font-weight: 1000;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+#YouTube, #Spotify{
+  width: 50vw;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+ul, ol{
+  list-style: none;
+}
+
+#resultado button{
+  background-color: black;
+  color: white;
+  height: 1.5rem;
+  width: 4rem;
+  height: 1.75rem;
+  border-radius: 1rem;
+}
+
+#resultado button:hover{
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  transition: all 0.2s;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+#Logo-Spotify{
+  width: 7rem;
+  margin-bottom: 1rem;  
+}
+
+#Logo-YouTube{
+  width: 7rem;
+  margin-bottom: 1rem;
+}
+
+#resultado li{
+  padding: 0.7rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  max-width: 45vw;
+}
+
+.floating{
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: none;
+  animation-direction: normal;
+}
+
+.giro{
+  animation-name: giro;
+  animation-duration: 6s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: none;
+  animation-direction: normal;
+}
+
+@keyframes floating {
+  from {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes giro {
+  from {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(382deg);
+  }
+  30%{
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#buscador-Spotify{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#buscador-Spotify input{
+  height: 2rem;
+  width: 15rem;
+  padding-left: 0.6rem;
+  font-size: 1.25rem;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 3rem;
+}
+
+#buscador-Spotify button{
+  cursor: pointer;
+  height: 2.25rem;
+  width: 6rem;
+  font-size: 1.25rem;
+  color:white;
+  background-color: black;
+  border-color: #282c34;
+  border-radius: 3rem;
+}
+
+#buscador-Spotify button:hover{
+  cursor: pointer;
+  color:black;
+  background-color: white;
+  border-color: #282c34;
+  transition: all 0.2s;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1092px) {
+  body{
+    background: linear-gradient(0deg, rgba(28,255,0,1) 40%, rgba(249,255,136,1) 50%, rgba(255,0,0,1) 60%);
+  }
+  .App {
+    flex-direction: column;
+  }
+}
