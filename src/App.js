@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from './spotify-web-api-js';
-import Spotify from './spotify-player';
 import './App.css';
 
 const spotifyApi = new SpotifyWebApi();
@@ -11,10 +10,6 @@ const CLIENT_SECRET = "fe023b67330a45608aa2eca95f1f327b";
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedTrack, setSelectedTrack] = useState(null);
-  const [player, setPlayer] = useState(null);
-  const [searchInput, setSearchInput] = useState("");
-  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
     var authParameters = {
@@ -37,23 +32,12 @@ function App() {
     });
   };
 
-  const handleSelectTrack = (track) => {
-    setSelectedTrack(track);
-    player?.pause().then(() => {
-      player?.setVolume(0.5).then(() => {
-        player?.resume().then(() => {
-          player?.play({ uris: [track.uri] });
-        });
-      });
-    });
-  };
-
   return (
     <div className="App">
       <div id="Spotify">
         <h1>Spotify Player</h1>
           <div className="floating">
-            <img id="Logo-Spotify" className="giro" src={require("./Logo-Spotify.png")}></img>
+            <img id="Logo-Spotify" alt="Logo Spotify" className="giro" src={require("./Logo-Spotify.png")}></img>
           </div>
           <div id="buscador-Spotify">
             <input type="text" placeholder="Search for a track" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress = {event => {
@@ -74,12 +58,12 @@ function App() {
                 </li>
               ))}
           </ul>
-            <iframe id="track" allow="encrypted-media" className="hidden" src="" width="500" height="200" frameBorder="0"></iframe>
+            <iframe title="track" id="track" allow="encrypted-media" className="hidden" src="" width="500" height="200" frameBorder="0"></iframe>
       </div>
       <div id="YouTube">
         <h1>YouTube Player</h1>
         <div className="floating">
-          <img id="Logo-YouTube" className="giro" src={require("./Logo-YouTube.png")}></img>
+          <img id="Logo-YouTube" alt="Logo YouTube" className="giro" src={require("./Logo-YouTube.png")}></img>
         </div>
       </div>
     </div>  
