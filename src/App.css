@@ -179,9 +179,16 @@ ul, ol{
 
 @media (max-width: 1092px) {
   body{
-    background: linear-gradient(0deg, rgba(28,255,0,1) 40%, rgba(249,255,136,1) 50%, rgba(255,0,0,1) 60%);
+    background: linear-gradient(0deg, rgba(255,0,0,1) 45%, rgba(249,255,136,1) 50%, rgba(28,255,0,1) 55%);
   }
   .App {
+    align-items: center;
     flex-direction: column;
+  }
+  #Spotify, #YouTube{
+    height: 100vh;
+  }
+  #YouTube{
+    margin-top: 3rem;
   }
 }
