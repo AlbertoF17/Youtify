@@ -82,6 +82,7 @@ ul, ol{
 
 #resultado li{
   padding: 0.4rem;
+  margin:0.4rem;
   font-weight: bold;
   font-size: 1.25rem;
   display: flex;
