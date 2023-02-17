@@ -3,7 +3,7 @@ class SpotifyPlayer {
     constructor(options = {}) {
         this.options = options;
         this.listeners = {};
-        this.accessToken = localStorage.getItem("token");
+        this.accessToken = localStorage.getItem("Spotify token");
         this.exchangeHost = options.exchangeHost || "https://spotify-player.herokuapp.com";
         this.obtainingToken = false;
         this.loopInterval = null;
