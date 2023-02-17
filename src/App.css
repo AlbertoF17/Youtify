@@ -208,6 +208,6 @@ ul, ol{
     padding: 0;
   }
   #resultado li{
-    min-width: 60vw;
+    min-width: 80vw;
   }
 }
