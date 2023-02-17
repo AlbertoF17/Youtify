@@ -1,14 +1,14 @@
 /* global module */
 'use strict';
+
 /**
  * Class representing the API
  */
-var access_token = 'BQCjFpbXPRDbqc2-wIbRWT_nSKWmdokFqzyxmhg3akAK1R-elJN0LpUU9ozod_fcgGwW73biVvlOctxa-HgUkGkIBQQyueZSO0fo3z9Jh7vKnWS5fmsY';
 
 var SpotifyWebApi = (function () {
   
   var _baseUri = 'https://api.spotify.com/v1';
-  var _accessToken = access_token;
+  var _accessToken = localStorage.getItem("token");
   var _promiseImplementation = null;
 
   var WrapPromiseWithAbort = function (promise, onAbort) {

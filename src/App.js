@@ -5,39 +5,29 @@ import './App.css';
 
 const spotifyApi = new SpotifyWebApi();
 
-var access_token = 'BQCjFpbXPRDbqc2-wIbRWT_nSKWmdokFqzyxmhg3akAK1R-elJN0LpUU9ozod_fcgGwW73biVvlOctxa-HgUkGkIBQQyueZSO0fo3z9Jh7vKnWS5fmsY';
+const CLIENT_ID = "2d8b9cb8479a4de8b6eb8a863d30af0a";
+const CLIENT_SECRET = "fe023b67330a45608aa2eca95f1f327b";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState(null);
   const [player, setPlayer] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
+  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
-    // This is called when the Spotify Web Playback SDK is ready to be used
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      const token = access_token;
-      const newPlayer = new Spotify.Player({
-        name: 'React Spotify Player',
-        getOAuthToken: (cb) => { cb(token); }
-      });
+    var authParameters = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+    }
 
-      // Ready
-      newPlayer.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id);
-      });
-
-      // Not Ready
-      newPlayer.addListener('not_ready', ({ device_id }) => {
-        console.log('Device ID has gone offline', device_id);
-      });
-
-      setPlayer(newPlayer);
-    };
-  }, []);
-
-  useEffect(() => {
-    spotifyApi.setAccessToken(access_token);
+    fetch('https://accounts.spotify.com/api/token', authParameters)
+      .then(result => result.json())
+      .then(data => localStorage.setItem("token", data.access_token));
   }, []);
 
   const handleSearch = () => {
@@ -57,11 +47,6 @@ function App() {
       });
     });
   };
-  
-  /*const getURI = (track) => {
-    var URI = 'https://open.spotify.com/track/'+(track.uri).substring(track.uri).lastIndexOf(":");
-  }
-  `https://open.spotify.com/track/${(track.uri).substring((track.uri).lastIndexOf(":") + 1)}`*/
 
   return (
     <div className="App">
@@ -71,7 +56,12 @@ function App() {
             <img id="Logo-Spotify" className="giro" src={require("./Logo-Spotify.png")}></img>
           </div>
           <div id="buscador-Spotify">
-            <input type="text" placeholder="Search for a track" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            <input type="text" placeholder="Search for a track" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress = {event => {
+              if(event.key === "Enter"){
+                console.log("enter");
+                handleSearch();
+              }
+            }}/>
             <button onClick={handleSearch}>Search</button>
           </div>
           <ul id="resultado">
@@ -89,7 +79,7 @@ function App() {
       <div id="YouTube">
         <h1>YouTube Player</h1>
         <div className="floating">
-          <img id="Logo-YouTube" className="giro" src={require("./Logo-YouTube.webp")}></img>
+          <img id="Logo-YouTube" className="giro" src={require("./Logo-YouTube.png")}></img>
         </div>
       </div>
     </div>  

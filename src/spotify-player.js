@@ -1,11 +1,9 @@
 
-var access_token = 'BQCjFpbXPRDbqc2-wIbRWT_nSKWmdokFqzyxmhg3akAK1R-elJN0LpUU9ozod_fcgGwW73biVvlOctxa-HgUkGkIBQQyueZSO0fo3z9Jh7vKnWS5fmsY';
-
 class SpotifyPlayer {
     constructor(options = {}) {
         this.options = options;
         this.listeners = {};
-        this.accessToken = access_token;
+        this.accessToken = localStorage.getItem("token");
         this.exchangeHost = options.exchangeHost || "https://spotify-player.herokuapp.com";
         this.obtainingToken = false;
         this.loopInterval = null;
