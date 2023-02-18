@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Youtify/static/css/main.3b0b8a48.css",
-    "main.js": "/Youtify/static/js/main.00315fd0.js",
+    "main.css": "/Youtify/static/css/main.eb0e46a4.css",
+    "main.js": "/Youtify/static/js/main.9b6c60f6.js",
     "static/js/787.c4e7f8f9.chunk.js": "/Youtify/static/js/787.c4e7f8f9.chunk.js",
     "static/media/Logo-Spotify.png": "/Youtify/static/media/Logo-Spotify.d675c2f47a7f9a340ada.png",
     "index.html": "/Youtify/index.html",
-    "main.3b0b8a48.css.map": "/Youtify/static/css/main.3b0b8a48.css.map",
-    "main.00315fd0.js.map": "/Youtify/static/js/main.00315fd0.js.map",
+    "main.eb0e46a4.css.map": "/Youtify/static/css/main.eb0e46a4.css.map",
+    "main.9b6c60f6.js.map": "/Youtify/static/js/main.9b6c60f6.js.map",
     "787.c4e7f8f9.chunk.js.map": "/Youtify/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3b0b8a48.css",
-    "static/js/main.00315fd0.js"
+    "static/css/main.eb0e46a4.css",
+    "static/js/main.9b6c60f6.js"
   ]
 }
