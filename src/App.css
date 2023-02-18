@@ -234,7 +234,7 @@ ul, ol{
     width: 12vw;
   }
   #track{
-    width: 80vw;
+    width: 80%;
   }
 
   #resultado{
@@ -265,5 +265,11 @@ ul, ol{
   }
   #resultado li{
     min-width: 80vw;
+  }
+}
+
+@media (max-width: 576px) {
+  #track{
+    max-width: 50vw;
   }
 }
