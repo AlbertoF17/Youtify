@@ -3,7 +3,9 @@ import SpotifyWebApi from './spotify-web-api-js';
 import './App.css';
 
 const spotifyApi = new SpotifyWebApi();
-
+const REDIRECT_URI = "http://albertof17.github.io/Youtify"
+const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+const RESPONSE_TYPE = "token"
 const CLIENT_ID = "2d8b9cb8479a4de8b6eb8a863d30af0a";
 const CLIENT_SECRET = "fe023b67330a45608aa2eca95f1f327b";
 
@@ -34,6 +36,7 @@ function App() {
 
   return (
     <div className="App">
+       <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
       <div id="Spotify">
         <h1>Spotify Player</h1>
         <div className="floating">
