@@ -24,6 +24,43 @@ h1{
   width: 50vw;
 }
 
+.login-Spotify{
+  background-color: white;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 3rem;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border: none;
+  width: 7rem;
+}
+
+.logout{
+  cursor: pointer;
+  background-color: white;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.6rem;
+  border-radius: 3rem;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+}
+
+.login-Spotify:hover, .logout:hover{
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  transition: all 0.2s;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

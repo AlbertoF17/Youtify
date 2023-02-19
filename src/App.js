@@ -3,7 +3,8 @@ import SpotifyWebApi from './spotify-web-api-js';
 import './App.css';
 
 const spotifyApi = new SpotifyWebApi();
-const REDIRECT_URI = "http://albertof17.github.io/Youtify"
+//const REDIRECT_URI = "http://albertof17.github.io/Youtify"
+const REDIRECT_URI = "http://localhost:3000";
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
 const RESPONSE_TYPE = "token"
 const CLIENT_ID = "2d8b9cb8479a4de8b6eb8a863d30af0a";
@@ -15,14 +16,13 @@ function App() {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    const hash = window.location.hash
-    let token = window.localStorage.getItem("token")
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem("token");
 
     if (!token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-
-      window.location.hash = ""
-      window.localStorage.setItem("token", token)
+      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
     }
 
     setToken(token)
@@ -36,7 +36,7 @@ function App() {
 
     fetch('https://accounts.spotify.com/api/token', authParameters)
       .then(result => result.json())
-      .then(data => localStorage.setItem("Spotify token", data.access_token));
+      .then(data => window.localStorage.setItem("Spotify token", data.access_token));
   }, []);
 
   const handleSearch = () => {
@@ -47,18 +47,17 @@ function App() {
   };
 
   const logout = () => {
-    setToken("");
+    setToken(null);
     window.localStorage.removeItem("token");
   }
 
   return (
     <div className="App">
-      {!token ?
-        <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
-          Login to Spotify</a> : <button onClick={logout}>Logout</button>}
       <div id="Spotify">
+      {!token ?
+        <a className="login-Spotify" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+          Spotify Login</a> : <button className="logout" onClick={logout}>Spotify Logout</button>}
         <h1>Spotify Player</h1>
-
         <div className="floating">
           <img id="Logo-Spotify" alt="Logo Spotify" className="giro" src={require("./Logo-Spotify.png")}></img>
         </div>
