@@ -12,8 +12,20 @@ const CLIENT_SECRET = "fe023b67330a45608aa2eca95f1f327b";
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [token, setToken] = useState("");
 
   useEffect(() => {
+    const hash = window.location.hash
+    let token = window.localStorage.getItem("token")
+
+    if (!token && hash) {
+      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+
+      window.location.hash = ""
+      window.localStorage.setItem("token", token)
+    }
+
+    setToken(token)
     var authParameters = {
       method: 'POST',
       headers: {
@@ -34,11 +46,19 @@ function App() {
     });
   };
 
+  const logout = () => {
+    setToken("");
+    window.localStorage.removeItem("token");
+  }
+
   return (
     <div className="App">
-       <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
+      {!token ?
+        <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+          Login to Spotify</a> : <button onClick={logout}>Logout</button>}
       <div id="Spotify">
         <h1>Spotify Player</h1>
+
         <div className="floating">
           <img id="Logo-Spotify" alt="Logo Spotify" className="giro" src={require("./Logo-Spotify.png")}></img>
         </div>
@@ -49,7 +69,7 @@ function App() {
               handleSearch();
             }
           }} />
-          <button onClick={handleSearch}><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"preserveAspectRatio="xMidYMid meet">
+          <button onClick={handleSearch}><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0, 500) scale(0.1,-0.1)" fill="#000000" stroke="none">
               <path d="M2085 4474 c-709 -76 -1277 -596 -1417 -1297 -32 -161 -32 -433 0
               -594 64 -320 215 -605 439 -829 230 -230 503 -376 833 -445 154 -33 439 -33
