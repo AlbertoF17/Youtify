@@ -54,8 +54,8 @@ function App() {
     setToken(token);
     spotifyApi.setAccessToken(token);
     try {
-      const url = 'https://accounts.spotify.com/authorize?client_id='+CLIENT_ID+'&redirect_uri='+REDIRECT_URI+'&response_type=code'                                                                                                                                                                                                                                                                              
-      const spotifyLoginWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40')                                                                                                
+      const url = 'https://accounts.spotify.com/authorize?client_id='+CLIENT_ID+'&redirect_uri='+REDIRECT_URI+'&response_type=code';                                                                                                                                                                                                                                                                           
+      const spotifyLoginWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40');                                                                      
     } catch (error) {
       console.error(error);
     }
