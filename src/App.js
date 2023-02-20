@@ -3,118 +3,140 @@ import SpotifyWebApi from './spotify-web-api-js';
 import './App.css';
 
 const spotifyApi = new SpotifyWebApi();
-//const REDIRECT_URI = "http://albertof17.github.io/Youtify"
-const REDIRECT_URI = "https://localhost:3000/callback";
+const REDIRECT_URI = "http://albertof17.github.io/Youtify"
+//const REDIRECT_URI = "https://localhost:3000/callback";
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const LOGOUT_ENDPOINT = 'https://www.spotify.com/logout/';
 const RESPONSE_TYPE = "token"
 const CLIENT_ID = "2d8b9cb8479a4de8b6eb8a863d30af0a";
 const CLIENT_SECRET = "fe023b67330a45608aa2eca95f1f327b";
+var sesion = false;
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');;
+
+  // useEffect(() => {
+  //   const hash = window.location.hash;
+
+  //   if (!token && hash) {
+  //     token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
+  //     window.location.hash = "";
+  //     setToken(token);
+  //   }
+
+  //   var authParameters = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     },
+  //     body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+  //   }
+
+  //   fetch('https://accounts.spotify.com/api/token', authParameters)
+  //     .then(result => result.json())
+  //     .then(data => setToken(data.access_token));
+  // }, []);
+
+  // const handleSearch = () => {
+  //   if (!searchTerm) return;
+  //   spotifyApi.searchTracks(searchTerm, { limit: 7 }).then((data) => {
+  //     setSearchResults(data.tracks.items);
+  //   });
+  // };
+
+  // //Iniciar sesión
+  // const login = () => {
+  //   const SCOPE = 'user-read-private user-read-email';
+  //   const url = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
+
+  //   // Abrir ventana emergente
+  //   const width = 450, height = 730;
+  //   const left = window.screen.width / 2 - width / 2;
+  //   const top = window.screen.height / 2 - height / 2;
+  //   const options = `width=${width},height=${height},left=${left},top=${top}`;
+  //   const authWindow = window.open(url, 'Spotify', options);
+
+  //   // Comprobar si la ventana emergente se abrió correctamente
+  //   if (!authWindow) {
+  //     alert('Por favor habilite las ventanas emergentes para este sitio web para iniciar sesión en Spotify.');
+  //     return;
+  //   }
+  //   authWindow.addEventListener('beforeunload', () => {
+  //     clearInterval(checkAuthWindowClosed);
+  //     window.localStorage.removeItem('token');
+  //     setToken('');
+  //   });
+  //   // Esperar a que la ventana emergente se cierre o el token de acceso sea obtenido
+  //   const checkAuthWindowClosed = setInterval(() => {
+  //     if (authWindow.closed) {
+  //       clearInterval(checkAuthWindowClosed);
+  //       const token = window.location.hash.substring(1).split('&')[0].split('=')[1];
+  //       if (token) {
+  //         // El token de acceso fue obtenido, redirigir a página de inicio
+  //         setToken(token);
+  //         window.location.href = REDIRECT_URI;
+  //         authWindow.close();
+  //         sesion = true;
+  //       } else {
+  //         // Si no se obtuvo el token de acceso, mostrar mensaje de error
+  //         alert('No se pudo iniciar sesión en Spotify. Por favor, inténtalo de nuevo.');
+  //       }
+  //     }
+  //   }, 500);
+  // };
+
+  // // Cerrar sesión
+  // const logout = () => {
+  //   if (token) {
+  //     const revokeEndpoint = 'https://accounts.spotify.com/api/revoke';
+  //     const headers = {
+  //       'Authorization': 'Basic ' + window.btoa(`${CLIENT_ID}:${CLIENT_SECRET}`),
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     };
+  //     const body = `token=${token}&token_type_hint=access_token`;
+
+  //     // Revocar token de acceso
+  //     fetch(revokeEndpoint, {
+  //       method: 'POST',
+  //       headers,
+  //       body
+  //     }).then(response => {
+  //       if (response.ok) {
+  //         // Token de acceso revocado correctamente, borrar del almacenamiento local y redirigir a página de inicio
+  //         setToken('');
+  //         window.location.href = REDIRECT_URI;
+  //         sesion = false;
+  //       } else {
+  //         // Mostrar mensaje de error
+  //         alert('No se pudo cerrar sesión en Spotify. Por favor, inténtalo de nuevo.');
+  //       }
+  //     });
+  //   } else {
+  //     // Si no se encontró el token de acceso, mostrar mensaje de error
+  //     alert('No se puede cerrar sesión en Spotify. No se encontró un token de acceso.');
+  //   }
+  // };
 
   useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+    const hash = window.location.hash
+    let token = token
 
     if (!token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
+      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+      window.location.hash = ""
     }
 
-    setToken(token);
+    setToken(token)
 
-    var authParameters = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
-    }
+  }, [])
 
-    fetch('https://accounts.spotify.com/api/token', authParameters)
-      .then(result => result.json())
-      .then(data => window.localStorage.setItem("Spotify token", data.access_token));
-  }, []);
-
-  const handleSearch = () => {
-    if (!searchTerm) return;
-    spotifyApi.searchTracks(searchTerm, { limit: 7 }).then((data) => {
-      setSearchResults(data.tracks.items);
-    });
-  };
-
-  // Iniciar sesión
-  const login = () => {
-    const RESPONSE_TYPE = 'token';
-    const SCOPE = 'user-read-private user-read-email';
-    const url = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
-
-    // Abrir ventana emergente
-    const width = 450, height = 730;
-    const left = window.screen.width / 2 - width / 2;
-    const top = window.screen.height / 2 - height / 2;
-    const options = `width=${width},height=${height},left=${left},top=${top}`;
-    const authWindow = window.open(url, 'Spotify', options);
-
-    // Esperar a que la ventana emergente se cierre o el token de acceso sea obtenido
-    const checkAuthWindowClosed = setInterval(() => {
-      if (authWindow.closed) {
-        clearInterval(checkAuthWindowClosed);
-        const token = window.localStorage.getItem('spotifyAuthToken');
-        if (token) {
-          // El token de acceso fue obtenido, redirigir a página de inicio
-          window.location.href = REDIRECT_URI;
-        } else {
-          // Si no se obtuvo el token de acceso, mostrar mensaje de error
-          alert('No se pudo iniciar sesión en Spotify. Por favor, inténtalo de nuevo.');
-        }
-      }
-    }, 500);
-  };
-
-  // Cerrar sesión
   const logout = () => {
-    const token = window.localStorage.getItem('token');
-    if (token) {
-      const revokeEndpoint = 'https://accounts.spotify.com/api/token';
-      const headers = {
-        'Authorization': 'Basic ' + btoa(`${CLIENT_ID}:${CLIENT_SECRET}`),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      };
-      const body = `token=${token}&token_type_hint=access_token`;
+    setToken("")
+  }
 
-      // Revocar token de acceso
-      fetch(revokeEndpoint, {
-        method: 'POST',
-        headers,
-        body
-      }).then(response => {
-        if (response.ok) {
-          // Token de acceso revocado correctamente, borrar del almacenamiento local y redirigir a página de inicio
-          window.localStorage.removeItem('token');
-          window.location.href = REDIRECT_URI;
-        } else {
-          // Mostrar mensaje de error
-          alert('No se pudo cerrar sesión en Spotify. Por favor, inténtalo de nuevo.');
-        }
-      });
-    } else {
-      // Si no se encontró el token de acceso, mostrar mensaje de error
-      alert('No se puede cerrar sesión en Spotify. No se encontró un token de acceso.');
-    }
-  };
-
-  // const logout = () => {
-  //   const spotifyLogoutWindow = window.open("https://www.spotify.com/logout/", 'Spotify Logout', 'width=600,height=800,top=400,left=100');
-  //   setTimeout(() => spotifyLogoutWindow.close());
-  //   window.location.reload();
-  // }
   //href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
   return (
     <div className="App">
@@ -127,7 +149,7 @@ function App() {
           <img id="Logo-Spotify" alt="Logo Spotify" className="giro" src={require("./Logo-Spotify.png")}></img>
         </div>
         <div id="buscador-Spotify">
-          <input type="text" placeholder="Search for a track" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={event => {
+          <input type="text" placeholder="Search for a track" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={event => {
             if (event.key === "Enter") {
               console.log("enter");
               handleSearch();

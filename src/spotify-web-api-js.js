@@ -8,7 +8,8 @@
 var SpotifyWebApi = (function () {
   
   var _baseUri = 'https://api.spotify.com/v1';
-  var _accessToken = localStorage.getItem("Spotify token");
+  //var _accessToken = localStorage.getItem("Spotify token");
+  var _accessToken = localStorage.getItem("token");
   var _promiseImplementation = null;
 
   var WrapPromiseWithAbort = function (promise, onAbort) {
