@@ -40,53 +40,53 @@ function App() {
   //     .then(data => setToken(data.access_token));
   // }, []);
 
-  // const handleSearch = () => {
-  //   if (!searchTerm) return;
-  //   spotifyApi.searchTracks(searchTerm, { limit: 7 }).then((data) => {
-  //     setSearchResults(data.tracks.items);
-  //   });
-  // };
+  const handleSearch = () => {
+    if (!searchTerm) return;
+    spotifyApi.searchTracks(searchTerm, { limit: 7 }).then((data) => {
+      setSearchResults(data.tracks.items);
+    });
+  };
 
-  // //Iniciar sesión
-  // const login = () => {
-  //   const SCOPE = 'user-read-private user-read-email';
-  //   const url = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
+  //Iniciar sesión
+  const login = () => {
+    const SCOPE = 'user-read-private user-read-email';
+    const url = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 
-  //   // Abrir ventana emergente
-  //   const width = 450, height = 730;
-  //   const left = window.screen.width / 2 - width / 2;
-  //   const top = window.screen.height / 2 - height / 2;
-  //   const options = `width=${width},height=${height},left=${left},top=${top}`;
-  //   const authWindow = window.open(url, 'Spotify', options);
+    // Abrir ventana emergente
+    const width = 450, height = 730;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+    const options = `width=${width},height=${height},left=${left},top=${top}`;
+    const authWindow = window.open(url, 'Spotify', options);
 
-  //   // Comprobar si la ventana emergente se abrió correctamente
-  //   if (!authWindow) {
-  //     alert('Por favor habilite las ventanas emergentes para este sitio web para iniciar sesión en Spotify.');
-  //     return;
-  //   }
-  //   authWindow.addEventListener('beforeunload', () => {
-  //     clearInterval(checkAuthWindowClosed);
-  //     window.localStorage.removeItem('token');
-  //     setToken('');
-  //   });
-  //   // Esperar a que la ventana emergente se cierre o el token de acceso sea obtenido
-  //   const checkAuthWindowClosed = setInterval(() => {
-  //     if (authWindow.closed) {
-  //       clearInterval(checkAuthWindowClosed);
-  //       const token = window.location.hash.substring(1).split('&')[0].split('=')[1];
-  //       if (token) {
-  //         // El token de acceso fue obtenido, redirigir a página de inicio
-  //         setToken(token);
-  //         window.location.href = REDIRECT_URI;
-  //         authWindow.close();
-  //         sesion = true;
-  //       } else {
-  //         // Si no se obtuvo el token de acceso, mostrar mensaje de error
-  //         alert('No se pudo iniciar sesión en Spotify. Por favor, inténtalo de nuevo.');
-  //       }
-  //     }
-  //   }, 500);
-  // };
+    // Comprobar si la ventana emergente se abrió correctamente
+    if (!authWindow) {
+      alert('Por favor habilite las ventanas emergentes para este sitio web para iniciar sesión en Spotify.');
+      return;
+    }
+    authWindow.addEventListener('beforeunload', () => {
+      clearInterval(checkAuthWindowClosed);
+      window.localStorage.removeItem('token');
+      setToken('');
+    });
+    // Esperar a que la ventana emergente se cierre o el token de acceso sea obtenido
+    const checkAuthWindowClosed = setInterval(() => {
+      if (authWindow.closed) {
+        clearInterval(checkAuthWindowClosed);
+        const token = window.location.hash.substring(1).split('&')[0].split('=')[1];
+        if (token) {
+          // El token de acceso fue obtenido, redirigir a página de inicio
+          setToken(token);
+          window.location.href = REDIRECT_URI;
+          authWindow.close();
+          sesion = true;
+        } else {
+          // Si no se obtuvo el token de acceso, mostrar mensaje de error
+          alert('No se pudo iniciar sesión en Spotify. Por favor, inténtalo de nuevo.');
+        }
+      }
+    }, 500);
+  };
 
   // // Cerrar sesión
   // const logout = () => {
