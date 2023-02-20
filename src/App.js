@@ -55,12 +55,7 @@ function App() {
     spotifyApi.setAccessToken(token);
     try {
       const url = 'https://accounts.spotify.com/authorize?client_id='+CLIENT_ID+'&redirect_uri='+REDIRECT_URI+'&response_type=code';                                                                                                                                                                                                                                                                           
-      const spotifyLoginWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40');      
-      spotifyLoginWindow.onbeforeunload = function() {
-        var accessToken = localStorage.getItem('token');
-        var refreshToken = localStorage.getItem('token');
-        // use the code to get an access token (as described in the documentation)
-      };                                                                
+      window.open(url, 'Spotify Login', 'width=700,height=500,top=40,left=40');                                                           
     } catch (error) {
       console.error(error);
     }
@@ -70,6 +65,7 @@ function App() {
   async function handleLogout(token) {
     setToken(null);
     spotifyApi.setAccessToken(null);
+    token = null;
     try {
       const url = 'https://accounts.spotify.com/logout'                                                                                                                                                                                                                                                                               
       const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40')                                                                                                
