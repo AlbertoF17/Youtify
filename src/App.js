@@ -4,8 +4,10 @@ import './App.css';
 
 const spotifyApi = new SpotifyWebApi();
 //const REDIRECT_URI = "http://albertof17.github.io/Youtify"
-const REDIRECT_URI = "http://localhost:3000";
-const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+const REDIRECT_URI = "https://localhost:3000/callback";
+const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
+const LOGOUT_ENDPOINT = 'https://www.spotify.com/logout/';
 const RESPONSE_TYPE = "token"
 const CLIENT_ID = "2d8b9cb8479a4de8b6eb8a863d30af0a";
 const CLIENT_SECRET = "fe023b67330a45608aa2eca95f1f327b";
@@ -25,7 +27,8 @@ function App() {
       window.localStorage.setItem("token", token);
     }
 
-    setToken(token)
+    setToken(token);
+
     var authParameters = {
       method: 'POST',
       headers: {
@@ -46,17 +49,79 @@ function App() {
     });
   };
 
-  const logout = () => {
-    setToken(null);
-    window.localStorage.removeItem("token");
-  }
+  // Iniciar sesión
+  const login = () => {
+    const RESPONSE_TYPE = 'token';
+    const SCOPE = 'user-read-private user-read-email';
+    const url = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 
+    // Abrir ventana emergente
+    const width = 450, height = 730;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+    const options = `width=${width},height=${height},left=${left},top=${top}`;
+    const authWindow = window.open(url, 'Spotify', options);
+
+    // Esperar a que la ventana emergente se cierre o el token de acceso sea obtenido
+    const checkAuthWindowClosed = setInterval(() => {
+      if (authWindow.closed) {
+        clearInterval(checkAuthWindowClosed);
+        const token = window.localStorage.getItem('spotifyAuthToken');
+        if (token) {
+          // El token de acceso fue obtenido, redirigir a página de inicio
+          window.location.href = REDIRECT_URI;
+        } else {
+          // Si no se obtuvo el token de acceso, mostrar mensaje de error
+          alert('No se pudo iniciar sesión en Spotify. Por favor, inténtalo de nuevo.');
+        }
+      }
+    }, 500);
+  };
+
+  // Cerrar sesión
+  const logout = () => {
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      const revokeEndpoint = 'https://accounts.spotify.com/api/token';
+      const headers = {
+        'Authorization': 'Basic ' + btoa(`${CLIENT_ID}:${CLIENT_SECRET}`),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+      const body = `token=${token}&token_type_hint=access_token`;
+
+      // Revocar token de acceso
+      fetch(revokeEndpoint, {
+        method: 'POST',
+        headers,
+        body
+      }).then(response => {
+        if (response.ok) {
+          // Token de acceso revocado correctamente, borrar del almacenamiento local y redirigir a página de inicio
+          window.localStorage.removeItem('token');
+          window.location.href = REDIRECT_URI;
+        } else {
+          // Mostrar mensaje de error
+          alert('No se pudo cerrar sesión en Spotify. Por favor, inténtalo de nuevo.');
+        }
+      });
+    } else {
+      // Si no se encontró el token de acceso, mostrar mensaje de error
+      alert('No se puede cerrar sesión en Spotify. No se encontró un token de acceso.');
+    }
+  };
+
+  // const logout = () => {
+  //   const spotifyLogoutWindow = window.open("https://www.spotify.com/logout/", 'Spotify Logout', 'width=600,height=800,top=400,left=100');
+  //   setTimeout(() => spotifyLogoutWindow.close());
+  //   window.location.reload();
+  // }
+  //href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
   return (
     <div className="App">
       <div id="Spotify">
-      {!token ?
-        <a className="login-Spotify" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
-          Spotify Login</a> : <button className="logout" onClick={logout}>Spotify Logout</button>}
+        {!token ?
+          <a className="login-Spotify" onClick={login}>
+            Spotify Login</a> : <button className="logout" onClick={logout}>Spotify Logout</button>}
         <h1>Spotify Player</h1>
         <div className="floating">
           <img id="Logo-Spotify" alt="Logo Spotify" className="giro" src={require("./Logo-Spotify.png")}></img>
