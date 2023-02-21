@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from './spotify-web-api-js';
+//import SpotifyLoginCheck from "./SpotifyLoginCheck";
 import './App.css';
+import YouTubeSearch from './YoutubeSearch';
 
 
 const spotifyApi = new SpotifyWebApi();
@@ -38,7 +40,7 @@ function App() {
       .catch(error => {
         console.error('Error al obtener el token de acceso:', error);
       });
-  }, []);
+  }, [token]);
 
   const handleSearch = () => {
     if (!searchTerm) return;
@@ -58,6 +60,7 @@ function App() {
         spotifyApi.setAccessToken(token);
       }
     }, 100);
+    window.location.reload();
   }
 
 
@@ -72,6 +75,7 @@ function App() {
     } catch (error) {
       console.error(error);
     }
+    window.location.reload();
   }
 
   //href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
@@ -90,7 +94,6 @@ function App() {
           <div>
             <input id="input-Spotify" type="text" placeholder="Search for a track" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={event => {
               if (event.key === "Enter") {
-                console.log("enter");
                 handleSearch();
               }
             }} />
@@ -120,6 +123,7 @@ function App() {
         <div className="floating">
           <img id="Logo-YouTube" alt="Logo YouTube" className="giro" src={require("./Logo-YouTube.png")}></img>
         </div>
+        <YouTubeSearch/>
       </div>
     </div>
   );
