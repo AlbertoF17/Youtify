@@ -29,7 +29,7 @@ function App() {
       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     }
 
-    fetch('https://accounts.spotify.com/api/token', authParameters)
+    fetch(TOKEN_ENDPOINT, authParameters)
       .then(result => result.json())
       .then(data => {
         const accessToken = data.access_token;
@@ -54,8 +54,8 @@ function App() {
     setToken(token);
     spotifyApi.setAccessToken(token);
     try {
-      const url = 'https://accounts.spotify.com/authorize?client_id='+CLIENT_ID+'&redirect_uri='+REDIRECT_URI+'&response_type=code';                                                                                                                                                                                                                                                                           
-      window.open(url, 'Spotify Login', 'width=700,height=500,top=40,left=40');                                                           
+      const url = AUTH_ENDPOINT+'?client_id='+CLIENT_ID+'&redirect_uri='+REDIRECT_URI+'&response_type=code';
+      var spotifyLoginWindow = window.open(url, 'Spotify Login', 'width=500,height=700,,top=400,left=400');
     } catch (error) {
       console.error(error);
     }
@@ -67,8 +67,8 @@ function App() {
     spotifyApi.setAccessToken(null);
     token = null;
     try {
-      const url = 'https://accounts.spotify.com/logout'                                                                                                                                                                                                                                                                               
-      const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40')                                                                                                
+      const url = LOGOUT_ENDPOINT;                                                                                                                                                                                                                                                                               
+      const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=500,height=700,top=400,left=400')                                                                                                
       setTimeout(() => spotifyLogoutWindow.close(), 2000)
     } catch (error) {
       console.error(error);
