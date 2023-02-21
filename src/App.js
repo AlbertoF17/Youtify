@@ -85,30 +85,20 @@ function App() {
       <div id="Spotify">
         {token ? (
           <button className="logout" onClick={handleLogout}>Spotify Logout</button>
-        ) : (<button className="logout" onClick={handleLogin}>Spotify Login</button>)
-          /* {<SpotifyAuth
-            className="logout"
-            redirectUri={REDIRECT_URI}
-            clientID={CLIENT_ID}
-            scopes={['user-read-private', 'user-read-email']}
-            onSuccess={handleLogin}
-            popup
-          >
-            <button className="logout" onClick={handleLogout}>Spotify Login</button>
-          </SpotifyAuth>}*/}
+        ) : (<button className="logout" onClick={handleLogin}>Spotify Login</button>)}
         <h1>Spotify Player</h1>
         <div className="floating">
           <img id="Logo-Spotify" alt="Logo Spotify" className="giro" src={require("./Logo-Spotify.png")}></img>
         </div>
         <div id="buscador-Spotify">
           <div>
-            <input type="text" placeholder="Search for a track" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={event => {
+            <input id="input-Spotify" type="text" placeholder="Search for a track" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={event => {
               if (event.key === "Enter") {
                 console.log("enter");
                 handleSearch();
               }
             }} />
-            <button onClick={handleSearch}>
+            <button id="boton-Spotify" onClick={handleSearch}>
               <svg version="1.1" viewBox="0 0 32 32">
                 <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14 
               s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0 

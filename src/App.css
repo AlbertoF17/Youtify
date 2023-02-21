@@ -217,12 +217,11 @@ ul, ol{
   margin-right: -0.7rem;
   border-radius: 3rem;
   border: none;
-  background-color: none;
+  background: none;
 }
 
 #buscador-Spotify:hover>*,
-#buscador-Spotify:hover>*>*,
-#buscador-Spotify input:focus~*{
+#buscador-Spotify:hover>*>input{
   cursor: pointer;
   background-color: black;
   color: white;
@@ -230,17 +229,10 @@ ul, ol{
 }
 
 #buscador-Spotify:hover svg{
+  cursor: pointer;
   filter: invert(100);
   transition: all 0.2s;
 }
-
-
-/* 
-{
-  background-color: black;
-  color: white;
-  transition: all 0.2s;
-} */
 
 #resultado li{
   margin-right: 5rem;
