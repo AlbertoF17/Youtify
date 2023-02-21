@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Youtify/static/css/main.b5e6537b.css",
-    "main.js": "/Youtify/static/js/main.40fd102b.js",
+    "main.js": "/Youtify/static/js/main.3f4007eb.js",
     "static/js/787.c4e7f8f9.chunk.js": "/Youtify/static/js/787.c4e7f8f9.chunk.js",
     "static/media/Logo-Spotify.png": "/Youtify/static/media/Logo-Spotify.d675c2f47a7f9a340ada.png",
     "index.html": "/Youtify/index.html",
     "main.b5e6537b.css.map": "/Youtify/static/css/main.b5e6537b.css.map",
-    "main.40fd102b.js.map": "/Youtify/static/js/main.40fd102b.js.map",
+    "main.3f4007eb.js.map": "/Youtify/static/js/main.3f4007eb.js.map",
     "787.c4e7f8f9.chunk.js.map": "/Youtify/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b5e6537b.css",
-    "static/js/main.40fd102b.js"
+    "static/js/main.3f4007eb.js"
   ]
 }
