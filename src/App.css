@@ -189,43 +189,58 @@ ul, ol{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
 }
 
-#buscador-Spotify input{
+#buscador-Spotify div{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.3rem;
   height: 2rem;
-  width: 15rem;
-  padding-left: 0.6rem;
-  font-size: 1.25rem;
+  width: 19rem;
   background-color: white;
   color: black;
   border: none;
   border-radius: 3rem;
 }
 
-#buscador-Spotify input:focus{
-  background-color: black;
-  color: white;
+#buscador-Spotify input{
+  border: none;
+  outline: none;
+  background-color: none;
+  font-size: 1.25rem;
 }
 
 #buscador-Spotify button{
-  cursor: pointer;
-  height: 2.25rem;
-  width: 3rem;
-  font-size: 1.25rem;
-  color:black;
-  background-color: white;
-  border-color: white;
-  border-radius: 5rem;
-  border-style: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-right: -0.7rem;
+  border-radius: 3rem;
+  border: none;
+  background-color: none;
 }
 
-#buscador-Spotify button:hover{
+#buscador-Spotify:hover>*,
+#buscador-Spotify:hover>*>*,
+#buscador-Spotify input:focus~*{
   cursor: pointer;
-  filter: invert(100);
-  border-color: #282c34;
+  background-color: black;
+  color: white;
   transition: all 0.2s;
 }
+
+#buscador-Spotify:hover svg{
+  filter: invert(100);
+  transition: all 0.2s;
+}
+
+
+/* 
+{
+  background-color: black;
+  color: white;
+  transition: all 0.2s;
+} */
 
 #resultado li{
   margin-right: 5rem;
