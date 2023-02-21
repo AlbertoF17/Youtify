@@ -8,7 +8,6 @@ function YouTubeSearch() {
     const [selectedVideo, setSelectedVideo] = useState(null);
 
     const handleSearch = async (event) => {
-        event.preventDefault();
         const response = await axios.get(
             `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&maxResults=10&type=video&q=${searchTerm}`
         );
@@ -58,7 +57,7 @@ function YouTubeSearch() {
                 </div>
             ) : videos ? (
                 <div id='resultados-YouTube'>
-                    <button id="boton-borrar" onClick={handleClearResults}>Borrar Resultados</button>
+                    <button id="boton-borrar" onClick={handleClearResults}>Borrar</button>
                     <ul id='lista-resultados'>
                         {videos.map((video) => (
                             <li key={video.id.videoId}>
