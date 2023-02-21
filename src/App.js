@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from './spotify-web-api-js';
-import { SpotifyAuth } from 'react-spotify-auth';
 import './App.css';
 
 
@@ -33,9 +32,7 @@ function App() {
       .then(result => result.json())
       .then(data => {
         const accessToken = data.access_token;
-        // Guarda el token en el almacenamiento local del navegador
         window.localStorage.setItem('token', accessToken);
-        // Actualiza el estado de la aplicación con el token generado
         setToken(accessToken);
       })
       .catch(error => {
@@ -77,9 +74,8 @@ function App() {
     }
   }
 
-
-
   //href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+
   return (
     <div className="App">
       <div id="Spotify">
