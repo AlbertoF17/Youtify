@@ -49,33 +49,28 @@ function App() {
     });
   };
 
-  function handleLogin(token) {
-    const url = AUTH_ENDPOINT + '?client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URI + '&response_type=code';
+  function handleLogin() {
+    const url = AUTH_ENDPOINT + '?client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URI + '&response_type=token';
     var spotifyLoginWindow = window.open(url, 'Spotify Login', 'width=500,height=700,top=200,left=600');
     var intervalId = setInterval(function () {
-      if (spotifyLoginWindow.location.href.includes('Youtify')) {
+      if (spotifyLoginWindow.location.href.includes('access_token')) {
         clearInterval(intervalId);
         spotifyLoginWindow.close();
+        const token = spotifyLoginWindow.location.hash.substring(1).split('&')[0].split('=')[1];
         setToken(token);
         spotifyApi.setAccessToken(token);
       }
     }, 100);
-    window.location.reload();
   }
 
 
   async function handleLogout(token) {
-    try {
-      const url = LOGOUT_ENDPOINT;
-      const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=500,height=700,top=200,left=600');
-      setTimeout(() => spotifyLogoutWindow.close(), 2000);
-      setToken(null);
-      spotifyApi.setAccessToken(null);
-      token = null;
-    } catch (error) {
-      console.error(error);
-    }
-    window.location.reload();
+    const url = LOGOUT_ENDPOINT;
+    setToken(null);
+    spotifyApi.setAccessToken(null);
+    token = null;
+    const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=500,height=700,top=200,left=600');
+    setTimeout(() => spotifyLogoutWindow.close(), 2000);
   }
 
   //href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
