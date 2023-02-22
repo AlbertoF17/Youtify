@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function YouTubeSearch() {
-    const API_KEY = 'AIzaSyANKb1hqX8IvbFaewZMqnVANZnj8TVJHKY';
+    const API_KEY = 'AIzaSyC3DibgUpVxJyI_0XHU52VfvOOkHeZVjPY';
     const [searchTerm, setSearchTerm] = useState("");
     const [videos, setVideos] = useState(null);
     const [selectedVideo, setSelectedVideo] = useState(null);
