@@ -2,10 +2,34 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function YouTubeSearch() {
-    const API_KEY = 'AIzaSyDE8dAwALkard3JWb6xxPNtJp6f_5GxwQA';
+    const API_KEY = 'AIzaSyANKb1hqX8IvbFaewZMqnVANZnj8TVJHKY';
     const [searchTerm, setSearchTerm] = useState("");
     const [videos, setVideos] = useState(null);
     const [selectedVideo, setSelectedVideo] = useState(null);
+
+    // // Configura la información de autenticación
+    // const authOptions = {
+    //     clientId: 'CLIENT_ID',
+    //     clientSecret: 'CLIENT_SECRET',
+    //     refreshToken: 'REFRESH_TOKEN'
+    // };
+
+    // // Crea un cliente de autenticación de actualización de usuario
+    // const authClient = new UserRefreshClient(authOptions);
+
+    // // Función para actualizar el token de acceso
+    // async function refreshAccessToken() {
+    //     try {
+    //         const { credentials } = await authClient.getAccessToken();
+    //         // Aquí actualizas el token en tu aplicación
+    //         console.log('Nuevo token de acceso:', credentials.access_token);
+    //     } catch (err) {
+    //         console.error('Error al actualizar el token de acceso:', err.message);
+    //     }
+    // }
+
+    // // Llama a la función para actualizar el token cada hora
+    // setInterval(refreshAccessToken, 60 * 60 * 1000);
 
     const handleSearch = async (event) => {
         const response = await axios.get(
@@ -24,6 +48,7 @@ function YouTubeSearch() {
         setVideos(null);
         setSelectedVideo(null);
     }
+    const { UserRefreshClient } = require('google-auth-library');
 
     return (
         <div>
@@ -51,7 +76,7 @@ function YouTubeSearch() {
                         height="450"
                         src={`https://www.youtube.com/embed/${selectedVideo.id.videoId}`}
                         title={selectedVideo.snippet.title}
-                        frameBorder = '0'
+                        frameBorder='0'
                     ></iframe>
                     <h2>{selectedVideo.snippet.title}</h2>
                 </div>
@@ -61,13 +86,13 @@ function YouTubeSearch() {
                     <ul id='lista-resultados'>
                         {videos.map((video) => (
                             <li key={video.id.videoId}>
-                                <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title}  onClick={() => handleVideoSelect(video)}/>
+                                <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} onClick={() => handleVideoSelect(video)} />
                                 <h2>{video.snippet.title}</h2>
                             </li>
                         ))}
                     </ul>
                 </div>
-            ):(<div></div>)}
+            ) : (<div></div>)}
         </div>
     );
 }
