@@ -362,6 +362,9 @@ ul, ol{
     flex-direction: column;
     padding: 2rem;
   }
+  #boton-borrar{
+    top:calc(100vh+13.6rem);
+  }
 }
 
 @media (max-width: 1092px) {
