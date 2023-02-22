@@ -65,13 +65,13 @@ function App() {
 
 
   async function handleLogout(token) {
-    setToken(null);
-    spotifyApi.setAccessToken(null);
-    token = null;
     try {
       const url = LOGOUT_ENDPOINT;
       const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=500,height=700,top=200,left=600');
       setTimeout(() => spotifyLogoutWindow.close(), 2000);
+      setToken(null);
+      spotifyApi.setAccessToken(null);
+      token = null;
     } catch (error) {
       console.error(error);
     }
@@ -123,7 +123,7 @@ function App() {
         <div className="floating">
           <img id="Logo-YouTube" alt="Logo YouTube" className="giro" src={require("./Logo-YouTube.png")}></img>
         </div>
-        <YouTubeSearch/>
+        <YouTubeSearch />
       </div>
     </div>
   );
