@@ -40,7 +40,7 @@ function App() {
       .catch(error => {
         console.error('Error al obtener el token de acceso:', error);
       });
-  }, [token]);
+  }, []);
 
   const handleSearch = () => {
     if (!searchTerm) return;
