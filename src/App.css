@@ -362,12 +362,7 @@ ul, ol{
     flex-direction: column;
     padding: 2rem;
   }
-  #video{
-    width: 80%;
-  }
-  #boton-borrar{
-    top:calc(100vh+13.6rem);
-  }
+
 }
 
 @media (max-width: 1092px) {
@@ -391,5 +386,11 @@ ul, ol{
   }
   #resultado li{
     min-width: 80vw;
+  }
+  #video{
+    width: 80vw;
+  }
+  #boton-borrar{
+    top:calc(100vh+13.6rem);
   }
 }
