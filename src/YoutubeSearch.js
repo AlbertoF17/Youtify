@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+//SI LA API DE YT NO FUNCIONA
+//https://console.cloud.google.com/cloud-resource-manager?previousPage=%2Fapis%2Fcredentials%3Fproject%3Dpelagic-rig-378600&organizationId=0
+//CREAR PROYECTO
+//BIBLIOTECA https://console.cloud.google.com/apis/library?project=pelagic-rig-378600
+//HABILITAR YOUTUBE DATA API V3
+//Y EN CREDENCIALES https://console.cloud.google.com/apis/credentials?project=pelagic-rig-378600 LE DAS A CREAR CREDENCIALES Y CLAVE DE API
+
 function YouTubeSearch() {
     const API_KEY = 'AIzaSyC3DibgUpVxJyI_0XHU52VfvOOkHeZVjPY';
     const [searchTerm, setSearchTerm] = useState("");
