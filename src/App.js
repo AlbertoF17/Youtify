@@ -15,7 +15,7 @@ function App() {
   const LOGOUT_ENDPOINT = 'https://www.spotify.com/logout/';
   const RESPONSE_TYPE = "token"
   const CLIENT_ID = "2d8b9cb8479a4de8b6eb8a863d30af0a";
-  const CLIENT_SECRET = "fe023b67330a45608aa2eca95f1f327b";
+  const CLIENT_SECRET = "23d845062387467bac5ab283ffc4dc12";
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
